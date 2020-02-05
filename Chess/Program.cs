@@ -1,4 +1,5 @@
 ﻿using System;
+using Chess.Board;
 
 namespace Chess
 {
@@ -6,7 +7,11 @@ namespace Chess
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Position position = new Position(3, 4);
+
+            Console.WriteLine("Position: "+ position);
+
+            Console.ReadLine();
         }
     }
 }
