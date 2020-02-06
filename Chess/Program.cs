@@ -9,6 +9,8 @@ namespace Chess
         {
             CBoard board = new CBoard(8, 8);
 
+            View.PrintBoard(board);
+
             Console.ReadLine();
         }
     }
