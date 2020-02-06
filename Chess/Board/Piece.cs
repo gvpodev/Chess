@@ -7,9 +7,9 @@
         public int QtMoves { get; protected set; }
         public CBoard Board { get; set; }
 
-        public Piece(Position position, CBoard board, Color color)
+        public Piece(CBoard board, Color color)
         {
-            Position = position;
+            Position = null;
             Board = board;
             Color = color;
             QtMoves = 0;
