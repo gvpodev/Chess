@@ -24,7 +24,7 @@ namespace Chess.Board
             return pieces[position.Row, position.Column];
         }
 
-        public bool ExistPiece(Position position)
+        public bool ThereIsPiece(Position position)
         {
             ValidatePosition(position);
             return piece(position) != null;
@@ -32,6 +32,10 @@ namespace Chess.Board
 
         public void PlayPiece(Piece piece, Position position)
         {
+            if (ThereIsPiece(position))
+            {
+                throw new BoardException("There is a piece in this position.");
+            }
             pieces[position.Row, position.Column] = piece;
             piece.Position = position;
         }
