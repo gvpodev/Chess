@@ -14,5 +14,10 @@
             Color = color;
             QtMoves = 0;
         }
+
+        public void IncreaseQtMoves()
+        {
+            QtMoves++;
+        }
     }
 }

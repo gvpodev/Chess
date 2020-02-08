@@ -10,15 +10,22 @@ namespace Chess
         {
             try
             {
-                CBoard board = new CBoard(8, 8);
+                ChessGame chessGame = new ChessGame();
 
-                board.PlayPiece(new Rook(board, Color.Black), new Position(0, 0));
-                board.PlayPiece(new Rook(board, Color.Black), new Position(1, 3));
-                board.PlayPiece(new King(board, Color.Black), new Position(0, 7));
+                while (!chessGame.Finished)
+                {
+                    Console.Clear();
+                    View.PrintBoard(chessGame.board);
 
-                board.PlayPiece(new Rook(board, Color.White), new Position(3, 4));
+                    Console.Write("Origin: ");
+                    Position origin = View.ReadChessPosition().ToPosition();
+                    Console.Write("Destiny: ");
+                    Position destiny = View.ReadChessPosition().ToPosition();
 
-                View.PrintBoard(board);
+                    chessGame.ExeMove(origin, destiny);
+                }
+
+
             }
             catch(BoardException e)
             {
