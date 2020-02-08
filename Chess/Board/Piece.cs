@@ -5,12 +5,12 @@
         public Position Position { get; set; }
         public Color Color { get; protected set; }
         public int QtMoves { get; protected set; }
-        public CBoard Board { get; set; }
+        public CBoard PieceBoard { get; set; }
 
         public Piece(CBoard board, Color color)
         {
             Position = null;
-            Board = board;
+            PieceBoard = board;
             Color = color;
             QtMoves = 0;
         }
