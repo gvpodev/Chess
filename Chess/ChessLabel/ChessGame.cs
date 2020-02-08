@@ -61,6 +61,14 @@ namespace Chess.ChessLabel
             }
         }
 
+        public void ValidateDestinyPosition(Position origin, Position destiny)
+        {
+            if (!board.piece(origin).CanMoveTo(destiny))
+            {
+                throw new BoardException("Invalid destiny position.");
+            }
+        }
+
         private void PutPieces()
         {
             board.PlayPiece(new Rook(board, Color.White), new ChessPosition('c', 1).ToPosition());

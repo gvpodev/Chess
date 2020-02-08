@@ -35,6 +35,7 @@ namespace Chess
                         Console.WriteLine();
                         Console.Write("Destiny: ");
                         Position destiny = View.ReadChessPosition().ToPosition();
+                        chessGame.ValidateDestinyPosition(origin, destiny);
 
                         chessGame.ExePlay(origin, destiny);
                     }
