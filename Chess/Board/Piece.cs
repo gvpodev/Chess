@@ -22,5 +22,21 @@
         {
             QtMoves++;
         }
+
+        public bool ThereIsPossibleMoves()
+        {
+            bool[,] matrix = PossibleMoves();
+            for(int i = 0; i < PieceBoard.Rows; i++)
+            {
+                for (int j = 0; j < PieceBoard.Columns; j++)
+                {
+                    if (matrix[i, j])
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
     }
 }

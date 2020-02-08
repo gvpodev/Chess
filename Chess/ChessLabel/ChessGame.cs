@@ -45,6 +45,22 @@ namespace Chess.ChessLabel
             }
         }
 
+        public void ValidateOriginPosition(Position position)
+        {
+            if(board.piece(position) == null)
+            {
+                throw new BoardException("There is no piece in the selected position.");
+            }
+            if(CurrentPlayer != board.piece(position).Color)
+            {
+                throw new BoardException("The origin piece does not belongs to you.");
+            }
+            if (!board.piece(position).ThereIsPossibleMoves())
+            {
+                throw new BoardException("There is no possible moves for your origin piece.");
+            }
+        }
+
         private void PutPieces()
         {
             board.PlayPiece(new Rook(board, Color.White), new ChessPosition('c', 1).ToPosition());
