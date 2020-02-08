@@ -16,6 +16,9 @@ namespace Chess
                 {
                     Console.Clear();
                     View.PrintBoard(chessGame.board);
+                    Console.WriteLine();
+                    Console.WriteLine("Turn: " + chessGame.Turn);
+                    Console.WriteLine("Waiting play: " + chessGame.CurrentPlayer);
 
                     Console.WriteLine();
                     Console.Write("Origin: ");
@@ -30,7 +33,7 @@ namespace Chess
                     Console.Write("Destiny: ");
                     Position destiny = View.ReadChessPosition().ToPosition();
 
-                    chessGame.ExeMove(origin, destiny);
+                    chessGame.ExePlay(origin, destiny);
                 }
 
 

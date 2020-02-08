@@ -5,8 +5,8 @@ namespace Chess.ChessLabel
     public class ChessGame
     {
         public CBoard board { get; private set; }
-        private int Turn;
-        private Color CurrentPlayer;
+        public int Turn { get; private set; }
+        public Color CurrentPlayer { get; private set; }
         public bool Finished { get; set; }
 
         public ChessGame()
@@ -24,6 +24,25 @@ namespace Chess.ChessLabel
             piece.IncreaseQtMoves();
             Piece CapturedPiece = board.RemovePiece(destiny);
             board.PlayPiece(piece, destiny);
+        }
+
+        public void ExePlay(Position origin, Position destiny)
+        {
+            ExeMove(origin, destiny);
+            Turn++;
+            ChangePlayer();
+        }
+
+        private void ChangePlayer()
+        {
+            if (CurrentPlayer == Color.White)
+            {
+                CurrentPlayer = Color.Black;
+            }
+            else
+            {
+                CurrentPlayer = Color.White;
+            }
         }
 
         private void PutPieces()
