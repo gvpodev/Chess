@@ -17,10 +17,7 @@ namespace Chess
                     try
                     {
                         Console.Clear();
-                        View.PrintBoard(chessGame.board);
-                        Console.WriteLine();
-                        Console.WriteLine("Turn: " + chessGame.Turn);
-                        Console.WriteLine("Waiting play: " + chessGame.CurrentPlayer);
+                        View.PrintGame(chessGame);
 
                         Console.WriteLine();
                         Console.Write("Origin: ");

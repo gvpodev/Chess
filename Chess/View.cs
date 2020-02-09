@@ -1,10 +1,45 @@
 ﻿using System;
 using Chess.Board;
 using Chess.ChessLabel;
+using System.Collections.Generic;
 namespace Chess
 {
     public class View
     {
+        public static void PrintGame(ChessGame chessGame)
+        {
+            PrintBoard(chessGame.board);
+            Console.WriteLine();
+            PrintCapturedPieces(chessGame);
+            Console.WriteLine();
+            Console.WriteLine("Turn: " + chessGame.Turn);
+            Console.WriteLine("Waiting play: " + chessGame.CurrentPlayer);
+        }
+
+        public static void PrintCapturedPieces(ChessGame chessGame)
+        {
+            Console.WriteLine("Captured pieces: ");
+            Console.Write("White: ");
+            PrintPieceSet(chessGame.CapturedPieces(Color.White));
+            Console.WriteLine();
+            Console.Write("Black: ");
+            ConsoleColor aux = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            PrintPieceSet(chessGame.CapturedPieces(Color.Black));
+            Console.ForegroundColor = aux;
+            Console.WriteLine();
+        }
+
+        public static void PrintPieceSet(HashSet<Piece> set)
+        {
+            Console.Write("[ ");
+            foreach(Piece x in set)
+            {
+                Console.Write(x + " ");
+            }
+            Console.Write(" ]");
+        }
+
         public static void PrintBoard(CBoard board)
         {
             for(int i = 0; i < board.Rows; i++)
