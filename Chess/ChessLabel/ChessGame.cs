@@ -11,6 +11,7 @@ namespace Chess.ChessLabel
         public bool Finished { get; set; }
         private HashSet<Piece> pieces;
         private HashSet<Piece> captured;
+        public bool Check { get; private set; }
 
         public ChessGame()
         {
@@ -18,12 +19,13 @@ namespace Chess.ChessLabel
             Turn = 1;
             CurrentPlayer = Color.White;
             Finished = false;
+            Check = false;
             pieces = new HashSet<Piece>();
             captured = new HashSet<Piece>();
             PutPieces();
         }
 
-        public void ExeMove(Position origin, Position destiny)
+        public Piece ExeMove(Position origin, Position destiny)
         {
             Piece piece = board.RemovePiece(origin);
             piece.IncreaseQtMoves();
@@ -33,11 +35,42 @@ namespace Chess.ChessLabel
             {
                 captured.Add(CapturedPiece);
             }
+            return CapturedPiece;
+        }
+
+
+        public void UndoMove(Position origin, Position destiny, Piece capturedPiece)
+        {
+            Piece p = board.RemovePiece(destiny);
+            p.DecreaseQtMoves();
+
+            if (capturedPiece != null)
+            {
+                board.PlayPiece(capturedPiece, destiny);
+                captured.Remove(capturedPiece);
+            }
+            board.PlayPiece(p, origin);
         }
 
         public void ExePlay(Position origin, Position destiny)
         {
-            ExeMove(origin, destiny);
+            Piece capturedPiece = ExeMove(origin, destiny);
+
+            if (InCheck(CurrentPlayer))
+            {
+                UndoMove(origin, destiny, capturedPiece);
+                throw new BoardException("You cannot get yourself in Checkmate.");
+            }
+
+            if (InCheck(Enemy(CurrentPlayer)))
+            {
+                Check = true;
+            }
+            else
+            {
+                Check = false;
+            }
+
             Turn++;
             ChangePlayer();
         }
@@ -103,6 +136,49 @@ namespace Chess.ChessLabel
             }
             aux.ExceptWith(CapturedPieces(color));
             return aux;
+        }
+
+        private Color Enemy(Color color)
+        {
+            if(color == Color.White)
+            {
+                return Color.Black;
+            }
+            else
+            {
+                return Color.White;
+            }
+        }
+
+        private Piece King(Color color)
+        {
+            foreach(Piece x in InGamePieces(color))
+            {
+                if(x is King)
+                {
+                    return x;
+                }
+            }
+            return null;
+        }
+
+        public bool InCheck(Color color)
+        {
+            Piece K = King(color);
+            if (K == null)
+            {
+                throw new BoardException("There is no King.");
+            }
+
+            foreach (Piece x in InGamePieces(Enemy(color)))
+            {
+                bool[,] matrix = x.PossibleMoves();
+                if(matrix[K.Position.Row, K.Position.Column])
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public void PutNewPiece(char column, int row, Piece piece)

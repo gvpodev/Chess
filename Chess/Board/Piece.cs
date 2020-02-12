@@ -23,6 +23,11 @@
             QtMoves++;
         }
 
+        public void DecreaseQtMoves()
+        {
+            QtMoves--;
+        }
+
         public bool ThereIsPossibleMoves()
         {
             bool[,] matrix = PossibleMoves();

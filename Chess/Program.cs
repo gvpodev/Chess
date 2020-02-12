@@ -19,6 +19,10 @@ namespace Chess
                         Console.Clear();
                         View.PrintGame(chessGame);
 
+                        if(chessGame.InCheck(Color.Black) || chessGame.InCheck(Color.White))
+                        {
+                            Console.WriteLine("Check!!");
+                        }
                         Console.WriteLine();
                         Console.Write("Origin: ");
                         Position origin = View.ReadChessPosition().ToPosition();
